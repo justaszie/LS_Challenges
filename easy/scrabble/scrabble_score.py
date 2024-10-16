@@ -12,6 +12,19 @@ class Scrabble:
     def __init__(self, word):
         self._word = word
 
+    @classmethod
+    def calculate_score(cls, word):
+        if not word or not isinstance(word, str):
+            return 0
+
+        return sum([ value
+                     for char in word.upper()
+                     for letters, value in Scrabble.VALUES.items()
+                     if char in letters ])
+
+    def score(self):
+        return self.__class__.calculate_score(self._word)
+
     # V1 - static method doing most of the work
     # @staticmethod
     # def calculate_score(word):
@@ -28,26 +41,26 @@ class Scrabble:
     #     return Scrabble.calculate_score(self._word)
 
     # V2 - instane method doing most of the work
-    @classmethod
-    def calculate_score(cls, word):
-        return cls(word).score()
+    # @classmethod
+    # def calculate_score(cls, word):
+    #     return cls(word).score()
 
-    def score(self):
+    # def score(self):
 
-        # V2.a : normal looping
-        # result = 0
-        # if self._word and isinstance(self._word, str):
-        #     :
-        #         for letters in :
-        #             if char in letters:
-        #                 result += Scrabble.VALUES.get(letters)
-        # return result
+    #     # V2.a : normal looping
+    #     # result = 0
+    #     # if self._word and isinstance(self._word, str):
+    #     #     :
+    #     #         for letters in :
+    #     #             if char in letters:
+    #     #                 result += Scrabble.VALUES.get(letters)
+    #     # return result
 
-        # V2.b: comprehension
-        if not self._word or not isinstance(self._word, str):
-            return 0
+    #     # V2.b: comprehension
+    #     if not self._word or not isinstance(self._word, str):
+    #         return 0
 
-        return sum([ value
-                     for char in self._word.upper()
-                     for letters, value in Scrabble.VALUES.items()
-                     if char in letters ])
+    #     return sum([ value
+    #                  for char in self._word.upper()
+    #                  for letters, value in Scrabble.VALUES.items()
+    #                  if char in letters ])
