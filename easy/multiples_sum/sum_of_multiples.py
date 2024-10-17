@@ -4,8 +4,7 @@ class SumOfMultiples:
 
     def _is_multiple(self, multiple_candidate):
         return any([multiple_candidate % set_number == 0
-                    for set_number
-                    in self._numbers_set])
+                    for set_number in self._numbers_set])
 
     def to(self, limit_number):
         multiples = {multiple_candidate for multiple_candidate
