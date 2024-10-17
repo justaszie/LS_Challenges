@@ -1,6 +1,6 @@
 class SumOfMultiples:
     def __init__(self, *args):
-        self._numbers_set = set(args)
+        self._numbers_set = set(args) if args else {3, 5}
 
     def _is_multiple(self, multiple_candidate):
         return any([multiple_candidate % set_number == 0
@@ -16,8 +16,7 @@ class SumOfMultiples:
 
     @classmethod
     def sum_up_to(cls, limit_number):
-        default_set = {3, 5}
-        return cls(*default_set).to(limit_number)
+        return cls().to(limit_number)
 
 if __name__ == '__main__':
     print(SumOfMultiples(4, 4).to(15))
