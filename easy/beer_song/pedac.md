@@ -94,7 +94,7 @@ If they are none, the method will set some values.
 
 
 # Mistake & Correction
-There are in fact 2 class methods:
+There are in fact 3 class methods, not 1:
     - `verses()` that takes 2 arguments for a range of numbers
     - `verse()` that takes 1 argument
     - `lyrics()` that takes 0 arguments and generates the whole song

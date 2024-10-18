@@ -1,4 +1,3 @@
-
 class BeerSong:
     @staticmethod
     def verse(bottle_count):
