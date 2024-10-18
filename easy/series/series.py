@@ -3,8 +3,7 @@ class Series:
         self._digits = digits
 
     def one_slice(self, start, end):
-        slice = self._digits[start:end]
-        return [int(char) for char in slice]
+        return [int(char) for char in self._digits[start:end]]
 
     def slices(self, series_len):
         string_len = len(self._digits)
@@ -12,12 +11,8 @@ class Series:
         if series_len > string_len:
             raise ValueError(f'Series can have max. length of {string_len}')
 
-        result = []
-        for idx in range(0, (string_len - series_len) + 1):
-            slice = self.one_slice(idx, idx + series_len) # 5digits, length 2. Goes up to indexes 3-5(excl)
-            result.append(slice)
-
-        return result
+        return [self.one_slice(idx, idx + series_len)
+                for idx in range(0, (string_len - series_len) + 1)]
 
 if __name__ == '__main__':
     print(Series('02134').slices(1))
