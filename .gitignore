@@ -1,2 +1,2 @@
 *.txt
-easy/**/__pycache__/
+**/__pycache__/
