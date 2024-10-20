@@ -1,14 +1,13 @@
 import random
 
 class Robot:
-    taken_names = set()
+    _taken_names = set()
 
     def __init__(self):
         self.set_new_name()
 
     def reset(self):
-        self.__class__.taken_names.remove(self.name)
-
+        self.__class__._taken_names.remove(self.name)
         self.set_new_name()
 
     @property
@@ -16,26 +15,25 @@ class Robot:
         return self._name
 
     def set_new_name(self):
-        new_name = self.__class__.generate_name()
-        while new_name in self.__class__.taken_names:
+        self._name = None
+
+
+        while True:
             new_name = self.__class__.generate_name()
+            if new_name not in self.__class__._taken_names:
+                break
 
         self._name = new_name
-
-        self.__class__.taken_names.add(self.name)
+        self.__class__._taken_names.add(self.name)
 
     @classmethod
     def generate_name(cls):
-        result = ''
-
         letters = [chr(unicode_value) for unicode_value in range(ord('A'), ord('Z') + 1)]
         digits = [str(digit) for digit in range (10)]
 
-        for _ in range(2):
-            result += random.choice(letters)
-
-        for _ in range(3):
-            result += random.choice(digits)
+        result = ''
+        result += ''.join(random.choices(letters, k=2))
+        result += ''.join(random.choices(digits, k=3))
 
         return result
 
