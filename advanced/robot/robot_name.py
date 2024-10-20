@@ -4,25 +4,25 @@ class Robot:
     taken_names = set()
 
     def __init__(self):
-        new_name = self.__class__.generate_name()
-        while new_name in self.__class__.taken_names:
-            new_name = self.__class__.generate_name()
+        self.set_new_name()
 
-        self.name = new_name
-
-        # self.__class__.taken_names.add(new_name)
-
-    # TODO: review repetition of name generation lines
     def reset(self):
         self.__class__.taken_names.remove(self.name)
 
+        self.set_new_name()
+
+    @property
+    def name(self):
+        return self._name
+
+    def set_new_name(self):
         new_name = self.__class__.generate_name()
         while new_name in self.__class__.taken_names:
             new_name = self.__class__.generate_name()
 
-        self.name = new_name
+        self._name = new_name
 
-        # self.__class__.taken_names.add(new_name)
+        self.__class__.taken_names.add(self.name)
 
     @classmethod
     def generate_name(cls):
@@ -39,14 +39,6 @@ class Robot:
 
         return result
 
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, new_name):
-        self._name = new_name
-        self.__class__.taken_names.add(self.name)
 
 if __name__ == '__main__':
     robot1 = Robot()
