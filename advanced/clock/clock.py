@@ -1,4 +1,6 @@
 class Clock:
+    ONE_DAY = 1440
+
     def __init__(self, hours, minutes):
         self._hours = hours
         self._minutes = minutes
@@ -7,26 +9,17 @@ class Clock:
     def at(cls, hours, minutes=0):
         return Clock(hours, minutes)
 
-    @staticmethod
-    def pad_zeroes(number):
-           return str(number) if number >= 10 else f'0{number}'
-
     def __str__(self):
-        return f'{Clock.pad_zeroes(self._hours)}:' \
-        f'{Clock.pad_zeroes(self._minutes)}'
+        return f'{self._hours:02d}:{self._minutes:02d}'
 
     def __add__(self, other):
         if not isinstance(other, int):
             return NotImplemented
 
-        min_to_add = other % 1440
         current_min = self._hours * 60 + self._minutes
-        result_min = current_min + min_to_add
 
-        if result_min < 0:
-            result_min = 1440 + result_min
+        result_min = (current_min + other) % Clock.ONE_DAY
 
-        result_min %= 1440
         new_hours, new_min = divmod(result_min, 60)
         return Clock.at(new_hours, new_min)
 
