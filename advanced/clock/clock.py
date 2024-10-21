@@ -22,6 +22,10 @@ class Clock:
         min_to_add = other % 1440
         current_min = self._hours * 60 + self._minutes
         result_min = current_min + min_to_add
+
+        if result_min < 0:
+            result_min = 1440 + result_min
+
         result_min %= 1440
         new_hours, new_min = divmod(result_min, 60)
         return Clock.at(new_hours, new_min)
@@ -30,13 +34,7 @@ class Clock:
         if not isinstance(other, int):
             return NotImplemented
 
-        min_to_subtract = other % 1440
-        current_min = self._hours * 60 + self._minutes
-        result_min = current_min - min_to_subtract
-        if result_min < 0:
-            result_min = 1440 + result_min
-        new_hours, new_min = divmod(result_min, 60)
-        return Clock.at(new_hours, new_min)
+        return self.__add__(-other)
 
     def __eq__(self, other):
         if not isinstance(other, Clock):
